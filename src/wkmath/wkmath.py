@@ -77,9 +77,7 @@ class Starter:
         """
         return self._raw_client
 
-    def add_numbers_math_add_post(
-        self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None
-    ) -> AddResponse:
+    def add(self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None) -> AddResponse:
         """
         Calculates the sum of two numbers provided in the request body.
 
@@ -106,12 +104,12 @@ class Starter:
         client = Starter(
             base_url="https://yourhost.com/path/to/api",
         )
-        client.add_numbers_math_add_post(
+        client.add(
             a=1.1,
             b=1.1,
         )
         """
-        _response = self._raw_client.add_numbers_math_add_post(a=a, b=b, request_options=request_options)
+        _response = self._raw_client.add(a=a, b=b, request_options=request_options)
         return _response.data
 
 
@@ -180,9 +178,7 @@ class AsyncStarter:
         """
         return self._raw_client
 
-    async def add_numbers_math_add_post(
-        self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None
-    ) -> AddResponse:
+    async def add(self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None) -> AddResponse:
         """
         Calculates the sum of two numbers provided in the request body.
 
@@ -214,7 +210,7 @@ class AsyncStarter:
 
 
         async def main() -> None:
-            await client.add_numbers_math_add_post(
+            await client.add(
                 a=1.1,
                 b=1.1,
             )
@@ -222,5 +218,5 @@ class AsyncStarter:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.add_numbers_math_add_post(a=a, b=b, request_options=request_options)
+        _response = await self._raw_client.add(a=a, b=b, request_options=request_options)
         return _response.data

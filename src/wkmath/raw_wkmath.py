@@ -20,7 +20,7 @@ class RawStarter:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def add_numbers_math_add_post(
+    def add(
         self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[AddResponse]:
         """
@@ -86,7 +86,7 @@ class AsyncRawStarter:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def add_numbers_math_add_post(
+    async def add(
         self, *, a: float, b: float, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[AddResponse]:
         """
