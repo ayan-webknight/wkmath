@@ -1,5 +1,5 @@
 # Reference
-<details><summary><code>client.<a href="src/wkmath/wkmath.py">add_numbers_math_add_post</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/wkmath/client.py">add_numbers_math_add_post</a>(...) -> AddResponse</code></summary>
 <dl>
 <dd>
 
@@ -31,6 +31,7 @@ from wkmath import Starter
 client = Starter(
     base_url="https://yourhost.com/path/to/api",
 )
+
 client.add_numbers_math_add_post(
     a=1.1,
     b=1.1,
