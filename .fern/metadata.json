@@ -13,5 +13,5 @@
     "exclude_types_from_init_exports": true
   },
   "originGitCommit": "56051b4cfcd8d9507578c5d6b90c5522f6614301",
-  "sdkVersion": "0.0.6"
+  "sdkVersion": "0.0.7"
 }

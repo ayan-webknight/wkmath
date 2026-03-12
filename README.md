@@ -36,9 +36,7 @@ Instantiate and use the client with the following:
 ```python
 from wkmath import Starter
 
-client = Starter(
-    base_url="https://yourhost.com/path/to/api",
-)
+client = Starter()
 
 client.add_numbers_math_add_post(
     a=1.1,
@@ -55,9 +53,7 @@ import asyncio
 
 from wkmath import AsyncStarter
 
-client = AsyncStarter(
-    base_url="https://yourhost.com/path/to/api",
-)
+client = AsyncStarter()
 
 
 async def main() -> None:

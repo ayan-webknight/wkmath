@@ -27,9 +27,10 @@ Calculates the sum of two numbers provided in the request body.
 
 ```python
 from wkmath import Starter
+from wkmath.environment import StarterEnvironment
 
 client = Starter(
-    base_url="https://yourhost.com/path/to/api",
+    environment=StarterEnvironment.LOCAL,
 )
 
 client.add_numbers_math_add_post(

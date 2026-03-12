@@ -6,6 +6,7 @@ import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.logging import LogConfig, Logger
 from .core.request_options import RequestOptions
+from .environment import StarterEnvironment
 from .raw_wkmath import AsyncRawStarter, RawStarter
 from .types.add_response import AddResponse
 
@@ -19,8 +20,17 @@ class Starter:
 
     Parameters
     ----------
-    base_url : str
+    base_url : typing.Optional[str]
         The base url to use for requests from the client.
+
+    environment : StarterEnvironment
+        The environment to use for requests from the client. from .environment import StarterEnvironment
+
+
+
+        Defaults to StarterEnvironment.LOCAL
+
+
 
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -41,15 +51,14 @@ class Starter:
     --------
     from wkmath import Starter
 
-    client = Starter(
-        base_url="https://yourhost.com/path/to/api",
-    )
+    client = Starter()
     """
 
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: StarterEnvironment = StarterEnvironment.LOCAL,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -60,7 +69,7 @@ class Starter:
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
         self._client_wrapper = SyncClientWrapper(
-            base_url=base_url,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             headers=headers,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -109,9 +118,7 @@ class Starter:
         --------
         from wkmath import Starter
 
-        client = Starter(
-            base_url="https://yourhost.com/path/to/api",
-        )
+        client = Starter()
         client.add_numbers_math_add_post(
             a=1.1,
             b=1.1,
@@ -127,8 +134,17 @@ class AsyncStarter:
 
     Parameters
     ----------
-    base_url : str
+    base_url : typing.Optional[str]
         The base url to use for requests from the client.
+
+    environment : StarterEnvironment
+        The environment to use for requests from the client. from .environment import StarterEnvironment
+
+
+
+        Defaults to StarterEnvironment.LOCAL
+
+
 
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -149,15 +165,14 @@ class AsyncStarter:
     --------
     from wkmath import AsyncStarter
 
-    client = AsyncStarter(
-        base_url="https://yourhost.com/path/to/api",
-    )
+    client = AsyncStarter()
     """
 
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: StarterEnvironment = StarterEnvironment.LOCAL,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -168,7 +183,7 @@ class AsyncStarter:
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
         self._client_wrapper = AsyncClientWrapper(
-            base_url=base_url,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             headers=headers,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -219,9 +234,7 @@ class AsyncStarter:
 
         from wkmath import AsyncStarter
 
-        client = AsyncStarter(
-            base_url="https://yourhost.com/path/to/api",
-        )
+        client = AsyncStarter()
 
 
         async def main() -> None:
@@ -235,3 +248,12 @@ class AsyncStarter:
         """
         _response = await self._raw_client.add_numbers_math_add_post(a=a, b=b, request_options=request_options)
         return _response.data
+
+
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: StarterEnvironment) -> str:
+    if base_url is not None:
+        return base_url
+    elif environment is not None:
+        return environment.value
+    else:
+        raise Exception("Please pass in either base_url or environment to construct the client")

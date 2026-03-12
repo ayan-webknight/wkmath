@@ -4,6 +4,7 @@ import typing
 
 import httpx
 from .core.logging import LogConfig, Logger
+from .environment import StarterEnvironment
 from .wkmath import AsyncStarter as wkmath_AsyncStarter
 from .wkmath import Starter as wkmath_Starter
 
@@ -12,7 +13,8 @@ class Starter(wkmath_Starter):
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: StarterEnvironment = StarterEnvironment.LOCAL,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -21,6 +23,7 @@ class Starter(wkmath_Starter):
     ):
         super().__init__(
             base_url=base_url,
+            environment=environment,
             headers=headers,
             timeout=timeout,
             follow_redirects=follow_redirects,
@@ -33,7 +36,8 @@ class AsyncStarter(wkmath_AsyncStarter):
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: StarterEnvironment = StarterEnvironment.LOCAL,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -42,6 +46,7 @@ class AsyncStarter(wkmath_AsyncStarter):
     ):
         super().__init__(
             base_url=base_url,
+            environment=environment,
             headers=headers,
             timeout=timeout,
             follow_redirects=follow_redirects,
