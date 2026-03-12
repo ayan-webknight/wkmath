@@ -20,10 +20,10 @@ class BaseClientWrapper:
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
-            "User-Agent": "wkmath/0.0.3",
+            "User-Agent": "wkmath/0.0.4",
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "wkmath",
-            "X-Fern-SDK-Version": "0.0.3",
+            "X-Fern-SDK-Version": "0.0.4",
             **(self.get_custom_headers() or {}),
         }
         return headers
